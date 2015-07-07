@@ -14,16 +14,9 @@ export class App {
       {
         route: ['', 'homepage', 'dashboard'],
         name: 'homepage',
-        moduleId: '.dashboard/homepage',
+        moduleId: 'dashboard/homepage',
         nav: false,
         title:'Homepage'
-      },
-      {
-        route: ['403'],
-        name: '403',
-        moduleId: '.403',
-        nav: false,
-        title:'403'
       }
     ]);
 
