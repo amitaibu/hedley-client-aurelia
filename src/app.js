@@ -1,9 +1,14 @@
 import 'bootstrap';
 import 'bootstrap/css/bootstrap.css!';
 
+import {Redirect} from 'aurelia-router';
+
 export class App {
   configureRouter(config, router){
     config.title = 'Aurelia';
+
+    // Add a route filter to the authorize extensibility point.
+    config.addPipelineStep('authorize', AuthorizeStep);
     config.map([
       {
         route: ['','welcome'],
@@ -30,5 +35,24 @@ export class App {
     ]);
 
     this.router = router;
+  }
+}
+
+class AuthorizeStep {
+  run(routingContext, next) {
+    // Check if the route has an "auth" key
+    // The reason for using `nextInstructions` is because
+    // this includes child routes.
+
+    console.log(routingContext.nextInstructions);
+
+    if (routingContext.nextInstructions.some(i => i.config.name !== 'login')) {
+      var isLoggedIn = /* insert magic here */false;
+      if (!isLoggedIn) {
+        return next.cancel(new Redirect('login'));
+      }
+    }
+
+    return next();
   }
 }
