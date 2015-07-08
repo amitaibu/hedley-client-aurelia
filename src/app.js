@@ -40,12 +40,9 @@ export class App {
 
 class AuthorizeStep {
   run(routingContext, next) {
-    // Check if the route has an "auth" key
+    // Check if the route has is not "login".
     // The reason for using `nextInstructions` is because
     // this includes child routes.
-
-    console.log(routingContext.nextInstructions);
-
     if (routingContext.nextInstructions.some(i => i.config.name !== 'login')) {
       var isLoggedIn = /* insert magic here */false;
       if (!isLoggedIn) {
