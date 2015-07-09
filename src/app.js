@@ -1,7 +1,9 @@
 import 'bootstrap';
 import 'bootstrap/css/bootstrap.css!';
 
-import {Redirect} from 'aurelia-router';
+import {AuthorizeStep} from './pipeline/authorize-step';
+
+console.log(AuthorizeStep);
 
 export class App {
   configureRouter(config, router){
@@ -35,21 +37,5 @@ export class App {
     ]);
 
     this.router = router;
-  }
-}
-
-class AuthorizeStep {
-  run(routingContext, next) {
-    // Check if the route has is not "login".
-    // The reason for using `nextInstructions` is because
-    // this includes child routes.
-    if (routingContext.nextInstructions.some(i => i.config.name !== 'login')) {
-      var isLoggedIn = /* insert magic here */false;
-      if (!isLoggedIn) {
-        return next.cancel(new Redirect('login'));
-      }
-    }
-
-    return next();
   }
 }
