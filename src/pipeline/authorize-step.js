@@ -19,10 +19,12 @@ export class AuthorizeStep {
 
     this.account
       .get()
-      .then(function() {
+      .then(function(data) {
+        console.log('logged-in');
         return next();
       })
       .catch(function() {
+        console.log('not logged');
         return next.cancel(new Redirect('login'));
       });
 

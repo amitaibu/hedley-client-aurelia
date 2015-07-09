@@ -1,21 +1,38 @@
 import {inject} from 'aurelia-framework';
 import {Auth} from './auth';
 import {Config} from '../config/config';
+import {EventAggregator} from 'aurelia-event-aggregator';
+
 import {HttpClient} from 'aurelia-http-client';
 
 
 
-@inject(Auth, Config)
+@inject(Auth, Config, EventAggregator)
 export class WebAPI {
 
-  constructor(auth, config){
+  constructor(auth, config, eventAggregator) {
     this.auth = auth;
-    this.http = new HttpClient();
+    this.config = config;
+    this.eventAggregator = eventAggregator;
 
+    this.http = new HttpClient();
+    this.initHttp();
+
+    this.subscribeEvents();
+  }
+
+  initHttp() {
+    console.log('token: ' + this.auth.getAccessToken());
     this.http
       .configure(x => {
-        x.withBaseUrl(config.backendUrl);
-        x.withHeader('access-token', auth.getAccessToken());
+        x.withBaseUrl(this.config.backendUrl);
+        x.withHeader('access-token', this.auth.getAccessToken());
+    });
+  }
+
+  subscribeEvents() {
+    this.eventAggregator.subscribe('user_logout', payload => {
+      this.initHttp();
     });
   }
 }

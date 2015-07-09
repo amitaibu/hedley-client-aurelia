@@ -18,7 +18,7 @@ export class Account {
   get() {
     var cache = this.getCache();
     if (!!cache) {
-      return Promise.resolve(cache);
+      // return Promise.resolve(cache);
     }
 
     return this.http
@@ -40,6 +40,7 @@ export class Account {
 
   subscribeEvents() {
     this.eventAggregator.subscribe('clear_cache', payload => {
+      console.log('clear cache account');
       this.cache = null;
     });
   }
