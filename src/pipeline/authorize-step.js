@@ -1,16 +1,15 @@
 import {inject} from 'aurelia-framework';
-import {Account} from './services/account';
+import {Account} from '../services/account';
 import {Redirect} from 'aurelia-router';
 
 @inject(Account)
-class AuthorizeStep {
+export class AuthorizeStep {
 
   constructor(account) {
     this.account = account;
   }
 
   run(routingContext, next) {
-    return next()
     // Check if the route has is not "login".
     // The reason for using `nextInstructions` is because
     // this includes child routes.

@@ -3,8 +3,6 @@ import 'bootstrap/css/bootstrap.css!';
 
 import {AuthorizeStep} from './pipeline/authorize-step';
 
-console.log(AuthorizeStep);
-
 export class App {
   configureRouter(config, router){
     config.title = 'Aurelia';
