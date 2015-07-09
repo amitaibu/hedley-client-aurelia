@@ -22,7 +22,6 @@ export class WebAPI {
   }
 
   initHttp() {
-    console.log('token: ' + this.auth.getAccessToken());
     this.http
       .configure(x => {
         x.withBaseUrl(this.config.backendUrl);
