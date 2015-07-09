@@ -30,6 +30,10 @@ export class WebAPI {
   }
 
   subscribeEvents() {
+    this.eventAggregator.subscribe('user_login', payload => {
+      this.initHttp();
+    });
+
     this.eventAggregator.subscribe('user_logout', payload => {
       this.initHttp();
     });
