@@ -1,14 +1,18 @@
 import {inject} from 'aurelia-framework';
+import {EventAggregator} from 'aurelia-event-aggregator';
 import {WebAPI} from './backend-http';
 
-@inject(WebAPI)
+@inject(EventAggregator, WebAPI)
 export class Account {
 
   // Internal cache.
   cache = null;
 
-  constructor(http) {
+  constructor(eventAggregator, http) {
+    this.eventAggregator = eventAggregator;
     this.http = http.http;
+
+    this.subscribeEvents();
   }
 
   get() {
@@ -32,5 +36,11 @@ export class Account {
 
   getCache() {
     return this.cache;
+  }
+
+  subscribeEvents() {
+    this.eventAggregator.subscribe('clear_cache', payload => {
+      this.cache = null;
+    });
   }
 }

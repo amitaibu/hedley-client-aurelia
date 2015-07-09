@@ -25,6 +25,13 @@ export class App {
         title: 'Login'
       },
       {
+        route: 'logout',
+        name: 'logout',
+        moduleId: './logout',
+        nav: true,
+        title: 'Logout'
+      },
+      {
         route: 'my-account',
         name: 'my-account',
         moduleId: './my-account',

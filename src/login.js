@@ -18,7 +18,7 @@ export class Login {
 
   constructor(auth, config, eventAggregator, http, router) {
     // Subscribe to events.
-    auth.subscribe();
+    auth.subscribeEvents();
 
     this.auth = auth;
     this.config = config;
