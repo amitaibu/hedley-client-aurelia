@@ -1,12 +1,14 @@
 import {inject} from 'aurelia-framework';
 import {Account} from '../services/account';
+import {Auth} from '../services/auth';
 import {Redirect} from 'aurelia-router';
 
-@inject(Account)
+@inject(Account, Auth)
 export class AuthorizeStep {
 
-  constructor(account) {
+  constructor(account, auth) {
     this.account = account;
+    this.auth = auth;
   }
 
   run(routingContext, next) {
@@ -15,6 +17,11 @@ export class AuthorizeStep {
     // this includes child routes.
     if (routingContext.nextInstructions.some(i => i.config.name === 'login')) {
       return next();
+    }
+
+    // A quick check to see if we have an access token present.
+    if (!this.auth.getAccessToken()) {
+      return next.cancel(new Redirect('login'));
     }
 
     this.account
