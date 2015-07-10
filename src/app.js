@@ -38,6 +38,13 @@ export class App {
         nav: true,
         title: 'My Account'
       },
+      {
+        route: 'companies',
+        name: 'companies',
+        moduleId: './companies',
+        nav: true,
+        title: 'Companies'
+      },
       { route: 'child-router', name: 'child-router', moduleId: './child-router', nav: true, title:'Child Router' }
     ]);
 
