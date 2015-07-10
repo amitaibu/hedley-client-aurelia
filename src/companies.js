@@ -14,7 +14,6 @@ export class Companies {
     return this.companiesAPI
       .get()
       .then(response => {
-        console.log(response);
         this.companies = response;
       });
   }

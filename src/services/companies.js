@@ -20,9 +20,11 @@ export class CompaniesAPI {
   get() {
     var cache = this.getCache();
     if (!!cache) {
+      console.log('companies from cache');
       return Promise.resolve(cache);
     }
 
+    console.log('companies from server');
     return this.http
       .get(this.endpoint)
       .then(response => {
