@@ -26,7 +26,7 @@ export class CompaniesAPI {
     return this.http
       .get(this.endpoint)
       .then(response => {
-        var data = JSON.parse(response.response).data[0];
+        var data = JSON.parse(response.response).data;
         this.setCache(data);
         return data;
       });
