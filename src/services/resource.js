@@ -6,7 +6,7 @@ import {WebAPI} from './backend-http';
 export class ResourceAbstract {
 
   // Internal cache.
-  cache = null;
+  cache = {};
   resourceName = null;
 
   constructor(eventAggregator, http) {
@@ -44,7 +44,7 @@ export class ResourceAbstract {
   subscribeEvents() {
     this.eventAggregator.subscribe('clear_cache', payload => {
       console.log('clear cache companies');
-      this.cache = null;
+      this.cache = {};
     });
   }
 }
