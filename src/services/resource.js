@@ -34,11 +34,11 @@ export class ResourceAbstract {
   }
 
   setCache(data) {
-    this.cache = data;
+    this.cache[this.resourceName] = data;
   }
 
   getCache() {
-    return this.cache;
+    return this.cache[this.resourceName];
   }
 
   subscribeEvents() {

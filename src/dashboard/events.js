@@ -1,22 +1,21 @@
 import {inject} from 'aurelia-framework';
-import {CompaniesAPI} from '../services/companies';
+import {EventsAPI} from '../services/events';
 
-@inject(CompaniesAPI)
+@inject(EventsAPI)
 export class Events {
 
   companies = null;
 
-  constructor(companiesAPI) {
-    this.companiesAPI = companiesAPI;
+  constructor(eventsAPI) {
+    this.eventsAPI = eventsAPI;
   }
 
   activate(params, routeConfig, navigationInstruction) {
-    console.log(params.companyId);
 
-    return this.companiesAPI
+    return this.eventsAPI
       .get()
       .then(response => {
-        this.companies = response;
+        this.events = events;
       });
   }
 }
