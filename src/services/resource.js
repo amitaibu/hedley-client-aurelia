@@ -16,15 +16,19 @@ export class ResourceAbstract {
     this.subscribeEvents();
   }
 
-  get() {
+  get(params) {
     var cache = this.getCache();
     if (!!cache) {
       console.log(this.resourceName + ' from cache');
       return Promise.resolve(cache);
     }
 
+    params = params || {};
     console.log(this.resourceName + ' from server');
     return this.http
+      .configure(x => {
+        x.withParams(params);
+      })
       .get(this.endpoint)
       .then(response => {
         var data = JSON.parse(response.response).data;
