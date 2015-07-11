@@ -45,7 +45,18 @@ export class App {
         nav: true,
         title: 'Companies'
       },
-      { route: 'child-router', name: 'child-router', moduleId: './child-router', nav: true, title:'Child Router' }
+      {
+        route: 'dashboard/:companyId',
+        name: 'dashboard',
+        moduleId: './dashboard',
+      },
+      {
+        route: 'child-router',
+        name: 'child-router',
+        moduleId: './child-router',
+        nav: true,
+        title:'Child Router'
+      }
     ]);
 
     this.router = router;
