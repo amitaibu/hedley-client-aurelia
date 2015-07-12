@@ -19,7 +19,7 @@ export class EventsList {
     };
 
     return this.eventsAPI
-      .get(params)
+      .get(false, params)
       .then(response => {
         this.events = response;
       });

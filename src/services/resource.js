@@ -16,12 +16,14 @@ export class ResourceAbstract {
     this.subscribeEvents();
   }
 
-  get(params) {
-    var cache = this.getCache(params);
+  get(id, params) {
+    id = id || '';
+    var cache = this.getCache(id, params);
     if (!!cache) {
       console.log(this.resourceName + ' from cache');
       return Promise.resolve(cache);
     }
+
 
     params = params || {};
     console.log(this.resourceName + ' from server');
@@ -29,22 +31,23 @@ export class ResourceAbstract {
       .configure(x => {
         x.withParams(params);
       })
-      .get(this.endpoint)
+      // Always add the ID, as it might be also an empty string.
+      .get(this.endpoint + '/' + id)
       .then(response => {
         var data = JSON.parse(response.response).data;
-        this.setCache(data, params);
+        this.setCache(data, id, params);
         return data;
       });
   }
 
-  setCache(data, params) {
-    var hash = JSON.stringify(params);
+  setCache(id, data, params) {
+    var hash = id + JSON.stringify(params);
     this.cache[this.resourceName] = this.cache[this.resourceName] || {}
     this.cache[this.resourceName][hash] = data;
   }
 
-  getCache(params) {
-    var hash = JSON.stringify(params);
+  getCache(id, params) {
+    var hash = id + JSON.stringify(params);
     return this.cache[this.resourceName] ? this.cache[this.resourceName][hash] : false;
   }
 

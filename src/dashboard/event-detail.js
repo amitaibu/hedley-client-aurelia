@@ -4,27 +4,17 @@ import {EventsAPI} from '../services/events';
 @inject(EventsAPI)
 export class EventDetail {
 
-  events = null;
+  event = null;
 
   constructor(eventsAPI) {
     this.eventsAPI = eventsAPI;
   }
 
   activate(params, routeConfig, navigationInstruction) {
-
-    console.log(params);
-    return true;
-
-    var params = {
-      'filter[company]': params.companyId,
-      // Sort desc.
-      sort: '-id'
-    };
-
     return this.eventsAPI
-      .get(params)
+      .get(params.eventId)
       .then(response => {
-        this.events = response;
+        this.event = response[0];
       });
   }
 }
