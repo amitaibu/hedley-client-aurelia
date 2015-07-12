@@ -12,6 +12,9 @@ export class EventDetail {
 
   activate(params, routeConfig, navigationInstruction) {
 
+    console.log(params);
+    return true;
+
     var params = {
       'filter[company]': params.companyId,
       // Sort desc.
