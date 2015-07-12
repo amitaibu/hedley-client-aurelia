@@ -7,6 +7,7 @@ export class ResourceAbstract {
 
   // Internal cache.
   cache = {};
+
   resourceName = null;
 
   constructor(eventAggregator, http) {
@@ -26,7 +27,8 @@ export class ResourceAbstract {
     }
 
     console.log(this.resourceName + ' from server');
-    return this.http
+
+    var promise = this.http
       .configure(x => {
         x.withParams(params);
       })
@@ -34,11 +36,23 @@ export class ResourceAbstract {
       .get(this.endpoint + '/' + id)
       .then(response => {
         var data = JSON.parse(response.response).data;
+        // Re-cache the resolved data.
         this.setCache(data, id, params);
         return data;
       });
+
+    this.setCache(promise, id, params);
+
+    return promise;
   }
 
+  /**
+   * @todo: Set cache of resolved data, or of the promise.
+   *
+   * @todo: Since data is can be a promise we avoid a race condition where the
+   * same query is called twice. On the first call we cache the promise, and when
+   * resolved, we re-cache the expanded value.
+   */
   setCache(data, id, params) {
     var hash = id + JSON.stringify(params);
     this.cache[this.resourceName] = this.cache[this.resourceName] || {}
