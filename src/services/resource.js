@@ -18,14 +18,13 @@ export class ResourceAbstract {
 
   get(id, params) {
     id = id || '';
+    params = params || {};
     var cache = this.getCache(id, params);
     if (!!cache) {
       console.log(this.resourceName + ' from cache');
       return Promise.resolve(cache);
     }
 
-
-    params = params || {};
     console.log(this.resourceName + ' from server');
     return this.http
       .configure(x => {
@@ -40,7 +39,7 @@ export class ResourceAbstract {
       });
   }
 
-  setCache(id, data, params) {
+  setCache(data, id, params) {
     var hash = id + JSON.stringify(params);
     this.cache[this.resourceName] = this.cache[this.resourceName] || {}
     this.cache[this.resourceName][hash] = data;
@@ -48,6 +47,7 @@ export class ResourceAbstract {
 
   getCache(id, params) {
     var hash = id + JSON.stringify(params);
+    this.cache[this.resourceName] = this.cache[this.resourceName] || {};
     return this.cache[this.resourceName] ? this.cache[this.resourceName][hash] : false;
   }
 
