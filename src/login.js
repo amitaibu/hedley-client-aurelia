@@ -18,8 +18,9 @@ export class Login {
 
   constructor(auth, config, eventAggregator, http, router) {
     // Subscribe to events.
-    auth.subscribe();
+    auth.subscribeEvents();
 
+    this.auth = auth;
     this.config = config;
     this.eventAggregator = eventAggregator;
     this.http = http;
@@ -31,14 +32,10 @@ export class Login {
   }
 
   login() {
-    var credentials = this.credentials;
-    // Convert to base64.
-    var base64 = window.btoa(credentials.username + ':' + credentials.pass);
-
     return this.http
       .configure(x => {
         x.withBaseUrl(this.config.backendUrl);
-        x.withHeader('Authorization', 'Basic ' + base64);
+        x.withHeader('Authorization', 'Basic ' + this.auth.getBase64FromBaseAuth(this.credentials));
       })
       .get('api/login-token')
       .then(response => {
