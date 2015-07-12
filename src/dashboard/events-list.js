@@ -2,7 +2,7 @@ import {inject} from 'aurelia-framework';
 import {EventsAPI} from '../services/events';
 
 @inject(EventsAPI)
-export class Events {
+export class EventsList {
 
   events = null;
 

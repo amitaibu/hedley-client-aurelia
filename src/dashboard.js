@@ -4,11 +4,18 @@ export class CompanyDashboard {
   configureRouter(config, router) {
     config.map([
       {
-        // @todo: Change route to "events" only.
-        route: ['', 'events'],
-        name: 'events',
-        moduleId: './dashboard/events',
-        title:'Events'
+        route: '',
+        title:'Company Dashboard',
+        viewPorts: {
+          first: {
+            name: 'events-list',
+            moduleId: './dashboard/events-list'
+          },
+          last: {
+            name: 'event-detail',
+            moduleId: './dashboard/event-detail'
+          }
+        }
       }
     ]);
 
