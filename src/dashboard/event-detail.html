@@ -1,0 +1,13 @@
+<template>
+  Detail:
+
+  <div class="loader" show.bind="isLoading">
+    <i class="fa fa-spinner fa-spin"></i>
+  </div>
+
+
+  <div class="title" show.bind="!isLoading">
+    ${eventDetail.label} by ${eventDetail.user.label}
+  </div>
+
+</template>

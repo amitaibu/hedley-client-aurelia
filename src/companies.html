@@ -2,7 +2,7 @@
   companies:
   <ul>
     <li repeat.for="company of companies">
-      ${company.label}
+      <a route-href="route: dashboard; params.bind: { companyId: company.id }">${company.label}</a>
     </li>
   </ul>
 </template>

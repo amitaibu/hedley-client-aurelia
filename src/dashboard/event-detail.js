@@ -2,9 +2,11 @@ import {inject} from 'aurelia-framework';
 import {EventsAPI} from '../services/events';
 
 @inject(EventsAPI)
-export class Events {
+export class EventDetail {
 
-  events = null;
+  eventDetail = null;
+
+  isLoading = false;
 
   constructor(eventsAPI) {
     this.eventsAPI = eventsAPI;
@@ -12,16 +14,13 @@ export class Events {
 
   activate(params, routeConfig, navigationInstruction) {
 
-    var params = {
-      'filter[company]': params.companyId,
-      // Sort desc.
-      sort: '-id'
-    };
+    this.isLoading = true;
 
     return this.eventsAPI
-      .get(params)
+      .get(params.eventId)
       .then(response => {
-        this.events = response;
+        this.isLoading = false;
+        this.eventDetail = response[0];
       });
   }
 }

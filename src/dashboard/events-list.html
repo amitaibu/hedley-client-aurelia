@@ -1,0 +1,8 @@
+<template>
+  Events:
+  <ul>
+    <li repeat.for="event of events">
+      <a route-href="route: event-detail; params.bind: { companyId: company.id, eventId: event.id }">${event.label}</a>
+    </li>
+  </ul>
+</template>

@@ -3,12 +3,34 @@ export class CompanyDashboard {
 
   configureRouter(config, router) {
     config.map([
-      { route: ['','welcome'], name: 'welcome',      moduleId: './welcome',      nav: true, title:'Welcome' },
       {
-        route: 'events',
-        name: 'events',
-        moduleId: './dashboard/events',
-        title:'Events'
+        route: '',
+        title:'Company Dashboard',
+        viewPorts: {
+          first: {
+            name: 'events-list',
+            moduleId: './dashboard/events-list'
+          },
+          last: {
+            name: 'event-detail',
+            moduleId: './dashboard/event-detail'
+          }
+        }
+      },
+      {
+        route: 'event/:eventId',
+        name: 'event-detail',
+        title:'Company Dashboard',
+        viewPorts: {
+          first: {
+            name: 'events-list',
+            moduleId: './dashboard/events-list'
+          },
+          last: {
+            name: 'event-detail',
+            moduleId: './dashboard/event-detail'
+          }
+        }
       }
     ]);
 
