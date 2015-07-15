@@ -44,6 +44,13 @@ export class App {
         title: 'Companies'
       },
       {
+        route: 'map',
+        name: 'map',
+        moduleId: './map',
+        nav: true,
+        title: 'Map'
+      },
+      {
         route: 'dashboard/:companyId',
         name: 'dashboard',
         moduleId: './dashboard',
