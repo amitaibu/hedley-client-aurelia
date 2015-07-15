@@ -5,18 +5,16 @@ import {AuthorizeStep} from './pipeline/authorize-step';
 
 export class App {
   configureRouter(config, router){
-    config.title = 'Aurelia';
+    config.title = 'Skeleton';
+    config.mapUnknownRoutes(instruction => {
+      //check instruction.fragment
+      //set instruction.config.moduleId
+      instruction.config.moduleId = './403';
 
+    });    
     // Add a route filter to the authorize extensibility point.
-    config.addPipelineStep('authorize', AuthorizeStep);
-    config.map([
-      {
-        route: ['','welcome'],
-        name: 'welcome',
-        moduleId: './welcome',
-        nav: true,
-        title:'Welcome'
-      },
+    config.addPipelineStep('authorize', AuthorizeStep);    
+    config.map([      
       {
         route: 'login',
         name: 'login',
@@ -46,6 +44,13 @@ export class App {
         title: 'Companies'
       },
       {
+        route: 'map',
+        name: 'map',
+        moduleId: './map',
+        nav: true,
+        title: 'Map'
+      },
+      {
         route: 'dashboard/:companyId',
         name: 'dashboard',
         moduleId: './dashboard',
@@ -54,8 +59,15 @@ export class App {
         route: 'child-router',
         name: 'child-router',
         moduleId: './child-router',
-        nav: true,
+        nav: false,
         title:'Child Router'
+      },
+      {
+        route: ['', 'homepage', 'dashboard', 'welcome'],
+        name: 'homepage',
+        moduleId: 'dashboard/homepage',
+        nav: false,
+        title:'Homepage'
       }
     ]);
 
